@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      Tailwind Starter Template - Landing Page Template: Tailwind Toolbox
+    </title>
+  <meta name="description" content="Simple landing page" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+    <!--Replace with your tailwind.css once created-->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" />
+    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <style>
+      .background {
+        background: url('./fruit4.webp') no-repeat, linear-gradient(90deg, #D54233 0%, #E0CC4C 100%);
+        /*background: url('./DSC_0099-removebg.png'), linear-gradient(90deg, #d53369 0%, #daae51 100%);*/
+        background-size: contain;
+        /*background-position: 0 -33vh;*/
+        /*background-size: 100vw auto;*/
+        /*background-position: 0 10vh;*/
+      }
+
+      .banner {
+        min-height: 700px;
+      }
+
+      .logo {
+        width: 100px;
+      }
+
+      .logo-text {
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 80%;
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+      }
+
+      @font-face {
+        font-family: "Nexa Regular";
+        src: url('nexa/NexaText-Trial-Regular.ttf') format('truetype');
+      }
+
+      #brandname {
+        font-family: "Nexa Regular";
+      }
+
+      @media (max-width: 1100px) {
+        .background {
+          background-size: contain;
+          /*background-position: 50vw -33vh;*/
+          background-position: 0 500px;
+        }
+
+      }
+
+      @media (max-width: 1100px) and (orientation: landscape) {
+        .banner {
+          min-height: 500px;
+        }
+
+        .background {
+          background-position: 0 33vh;
+        }
+      }
+
+      @media (max-width: 600px) {
+
+        .background {
+          background: url('./fruit4-mobile.webp') no-repeat fixed, linear-gradient(90deg, #D54233 0%, #E0CC4C 100%);
+          background-size: 150% auto;
+        }
+
+        @supports (height: 100svh) {
+          
+          .banner {
+            min-height: unset;
+            height: calc(100svh - 100px);
+          }
+        }
+
+      }
+
+      #contact-float-wrapper {
+        transform: translateY(0);
+      }
+
+      #header {
+        transition: top 300ms ease;
+      }
+
+      #no-cookies-banner {
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 300ms ease, opacity 300ms ease;
+      }
+
+      #no-cookies-banner.is-visible {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      #no-cookies-banner.is-hiding {
+        transform: translateY(-100%);
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body class="leading-normal tracking-normal text-gray-800 background" style="font-family: 'Source Sans Pro', sans-serif;">
+    <div id="no-cookies-banner" class="hidden fixed inset-x-0 top-0 z-40 bg-yellow-100 border-b border-yellow-200 shadow-md">
+      <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-3 sm:gap-4 px-4 py-3 text-yellow-900 text-center">
+        <p class="text-sm sm:text-base font-semibold text-center">Vi använder inga kakor, här kör vi på frukt</p>
+        <button id="no-cookies-dismiss" type="button" class="flex h-8 w-8 items-center justify-center rounded-full border border-yellow-300 text-yellow-800 transition hover:bg-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-400" aria-label="Stäng meddelande">
+          <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!--Nav-->
+    <nav id="header" class="fixed w-full z-30 top-0">
+      <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
+        <div id="brandname" class="pl-4 flex items-center text-white">
+          <a class="inline-flex items-center toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+            <img style="width:48px;height:48px" class="svg h-8 fill-current inline" src="./b_85416_design_1_1.svg">
+            <div class="logo-text">Fruktinvest</div>
+          </a>
+        </div>
+        <div class="block lg:hidden pr-4">
+          <button id="nav-toggle" class="flex items-center p-1 text-green-800 hover:text-gray-900 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            <svg class="fill-current h-6 w-6" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <title>Menu</title>
+              <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+            </svg>
+          </button>
+        </div>
+        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden mt-2 lg:mt-0 bg-white lg:bg-transparent text-gray-800 p-4 lg:p-0 z-20" id="nav-content">
+          <ul class="list-reset lg:flex justify-end flex-1 items-center">
+            <li class="mr-3">
+              <a class="inline-block py-2 px-4 text-gray-800 text-lg font-bold no-underline" href="#om-oss">Om oss</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-gray-800 text-lg no-underline hover:text-gray-800 hover:underline py-2 px-4" href="#hur-funkar-det">Hur funkar det</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-gray-800 text-lg no-underline hover:text-gray-800 hover:underline py-2 px-4" href="#vara-fruktkorgar">Våra fruktkorgar</a>
+            </li>
+            <li class="mr-3">
+              <a class="inline-block text-gray-800 text-lg no-underline hover:text-gray-800 hover:underline py-2 px-4" href="#vara-priser">Våra priser</a>
+            </li>
+            <li class="mr-3 lg:hidden">
+              <a class="inline-block text-gray-800 text-lg no-underline hover:text-gray-800 hover:underline py-2 px-4" href="#contact">Kontakta oss</a>
+            </li>
+          </ul>
+          <a
+            href="#contact"
+            class="cta hidden lg:inline-block mx-auto lg:mx-0 bg-yellow-400 text-gray-900 text-lg font-bold rounded-full mt-4 lg:mt-0 py-4 px-8 shadow focus:outline-none focus:shadow-outline transform transition hover:scale-105 hover:bg-red-600 hover:text-white duration-300 ease-in-out"
+          >
+            Kontakta oss
+          </a>
+        </div>
+      </div>
+      <hr class="border-b border-gray-100 opacity-25 my-0 py-0" />
+    </nav>
+    <!--Hero-->
+    <div class="pt-24">
+      <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center text-white">
+        <!--Left Col-->
+        <div class="banner flex flex-col w-full justify-center items-center text-center md:text-left">
+          <h1 class="my-4 text-5xl font-bold leading-tight">
+            Frukt på jobbet!
+          </h1>
+          <p class="leading-normal text-2xl mb-8 text-white">
+            En sund investering i en värld full av bullar
+          </p>
+          <a href="#contact"
+            class="cta mx-auto lg:mx-0 bg-white text-emerald-900 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+            KONTAKT
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="white-border-rendering-fix -mt-12 lg:-mt-24">
+      <svg viewBox="0 0 1428 174" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+            <path
+              d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+              opacity="0.100000001"
+            ></path>
+            <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" id="Path-4" opacity="0.200000003"></path>
+          </g>
+          <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <path
+              d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"
+            ></path>
+          </g>
+        </g>
+      </svg>
+    </div>
+  <section id="om-oss" class="white-border-rendering-fix bg-white border-b py-8 scroll-mt-[18px] lg:scroll-mt-[24px]">
+      <div class="container max-w-5xl mx-auto m-8">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+          Om oss 
+        </h1>
+        <div class="w-full mb-4">
+          <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+        <div class="flex flex-wrap">
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-5">
+              Frukt med omtanke i över två decennier
+            </h3>
+            <div class="space-y-6 text-2xl leading-relaxed">
+              <p class="text-gray-600">
+                I över två decennier har vi levererat frukt med omtanke till arbetsplatser runt om i Storgöteborg.
+              </p>
+              <p class="text-[#d6914b] font-semibold">
+                Vi är ett familjeföretag i andra generationen, grundat av vår pappa med en enkel idé: att erbjuda god service, hög kvalitet och ett leende på köpet.
+              </p>
+              <p class="text-gray-600">
+                Vi är inte en av jättarna, och det är precis så vi vill ha det. Här får du ett personligt bemötande, snabb återkoppling och lösningar som passar just din arbetsplats.
+              </p>
+            </div>
+          </div>
+          <div class="w-5/6 sm:w-1/2 p-6">
+            <h3 class="text-3xl text-gray-800 font-bold leading-none mb-5">
+              Personlig service i varje leverans
+            </h3>
+            <div class="space-y-6 text-2xl leading-relaxed">
+              <p class="text-gray-600">
+                Efter mer än 20 år i branschen, med kunder som följt med oss hela vägen, vet vi hur mycket personlig kontakt och pålitlighet betyder.
+              </p>
+              <p class="text-[#d6914b] font-semibold">
+                Vi anpassar oss efter era behov. Hos oss står kunden alltid i centrum.
+              </p>
+              <p class="text-gray-600">
+                Med våra färgglada fruktkorgar vill vi göra måndagar lite lättare och helt enkelt hela veckan lite friskare.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- TODO lägg till en bild här senare
+        <div class="w-full mt-10">
+          <img
+            src="about.webp"
+            alt="Fruktinvest-teamet levererar färska fruktkorgar"
+            class="w-full max-w-4xl mx-auto rounded-3xl shadow-lg object-cover"
+          />
+        </div>
+        -->
+      </div>
+    </section>
+    <section id="hur-funkar-det" class="white-border-rendering-fix bg-gray-50 border-b min-h-screen flex items-center">
+      <div class="container mx-auto w-full flex flex-col items-center justify-center px-6 py-16 gap-10">
+        <div class="flex flex-col items-center text-center">
+          <h1 class="my-2 text-5xl font-bold leading-tight text-gray-800">
+            Hur funkar det
+          </h1>
+          <div class="mt-4 h-1 mx-auto gradient w-64 opacity-25 rounded-t"></div>
+        </div>
+       <div class="w-full max-w-7xl mx-auto bg-white/90 rounded-3xl shadow-lg px-10 md:px-12 py-20 text-gray-700">
+          <div class="flex flex-col md:flex-row md:items-stretch gap-10 md:gap-16">
+            <div class="md:flex-1 space-y-4">
+              <p class="text-xl leading-relaxed">
+                Här hittar du vårt aktuella utbud av fruktkorgar och våra priser.<br />
+                I priset ingår alltid färska, noggrant utvalda frukter, packning, hantering samt leverans direkt till ert kontor eller arbetsplats.<br />
+                Vi erbjuder tydliga priser utan dolda avgifter, och ser till att leveransen håller hög kvalitet varje gång.
+              </p>
+            </div>
+            <div class="md:flex-1 flex flex-col justify-start md:justify-between gap-6 md:gap-0 md:h-full">
+              <div class="flex items-center gap-4 min-h-[55px]">
+                <span class="flex items-center justify-center text-green-600 text-2xl leading-none h-full">&check;</span>
+                <p class="text-xl font-semibold leading-relaxed">Ingen bindningstid - avsluta när du vill</p>
+              </div>
+              <div class="flex items-center gap-4 min-h-[55px]">
+                <span class="flex items-center justify-center text-green-600 text-2xl leading-none h-full">&check;</span>
+                <p class="text-xl font-semibold leading-relaxed">Inga dolda avgifter - enkelt och ärligt</p>
+              </div>
+              <div class="flex items-center gap-4 min-h-[55px]">
+                <span class="flex items-center justify-center text-green-600 text-2xl leading-none h-full">&check;</span>
+                <p class="text-xl font-semibold leading-relaxed">Personlig service - alltid med omtanke</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="vara-fruktkorgar" class="white-border-rendering-fix bg-white border-b py-8 scroll-mt-[18px] lg:scroll-mt-[24px]">
+      <div class="container mx-auto flex flex-wrap pt-4 pb-12">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+          Våra fruktkorgar
+        </h1>
+        <div class="w-full mb-6">
+          <div class="h-1 mx-auto gradient w-48 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+          <div class="flex-1 rounded-t rounded-b-none overflow-hidden shadow-xl border border-gray-100 bg-gradient-to-br from-white via-gray-50 to-gray-100">
+            <a class="flex flex-col h-full no-underline hover:no-underline">
+              <div class="w-full font-bold text-2xl leading-[6rem] text-gray-800 px-6 pt-6 text-center">
+                BAS
+              </div>
+              <p class="text-gray-800 text-xl px-6">
+                En korg med basfrukter som bananer, äpplen, päron och citrusfrukter. Ett enkelt och uppskattat val för vardagens fruktstund.
+              </p>
+              <div class="px-6 pb-6 mt-auto">
+                <div class="h-70 w-full overflow-hidden">
+                  <img class="w-full h-full object-cover" src="bas.webp" alt="Fruktkorg Bas" />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+          <div class="flex-1 rounded-t rounded-b-none overflow-hidden shadow-xl border border-gray-100 bg-gradient-to-br from-white via-gray-50 to-gray-100">
+            <a class="flex flex-col h-full no-underline hover:no-underline">
+              <div class="w-full font-bold text-2xl leading-[6rem] text-gray-800 px-6 pt-6 text-center">
+                STANDARD
+              </div>
+              <p class="text-gray-800 text-xl px-6">
+                En klassisk blandning av basfrukter som äpplen, päron, bananer och citrus, med inslag av säsongens frukter som plommon, nektariner eller andra favoriter. En uppskattad korg som passar alla tillfällen.
+              </p>
+              <div class="px-6 pb-6 mt-auto">
+                <div class="h-70 w-full overflow-hidden">
+                  <img class="w-full h-full object-cover" src="premium.webp" alt="Standard fruktkorg" />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+          <div class="flex-1 rounded-t rounded-b-none overflow-hidden shadow-xl border border-gray-100 bg-gradient-to-br from-white via-gray-50 to-gray-100">
+            <a class="flex flex-col h-full no-underline hover:no-underline">
+              <div class="w-full font-bold text-2xl leading-[6rem] text-gray-800 px-6 pt-6 text-center">                
+                EKOLOGISK
+              </div>
+              <p class="text-gray-800 text-xl px-6">
+                En blandning av ekologiska basfrukter som äpplen, päron, bananer och citrus – kompletterad med säsongens utvalda ekologiska frukter som plommon, nektariner eller andra fruktfavoriter. Allt noggrant utvalt för bästa smak och hållbarhet.
+              </p>
+              <div class="px-6 pb-6 mt-auto">
+                <div class="h-70 w-full overflow-hidden">
+                  <img class="w-full h-full object-cover" src="eko.webp" alt="Ekologisk fruktkorg" />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="w-full px-6 mt-12">
+          <div class="max-w-5xl mx-auto rounded-3xl border border-orange-200 bg-gradient-to-r from-orange-50 via-white to-orange-100 p-8 text-center shadow-sm">
+            <p class="text-[2rem] uppercase tracking-wide text-orange-600 font-extrabold">Erbjudande för nya kunder</p>
+            <h2 class="mt-3 text-[1.75rem] font-extrabold text-gray-800">50% rabatt på första månaden</h2>
+            <p class="mt-4 text-[1.5rem] text-gray-700">
+              Testa våra fruktkorgar till halva priset - levererat direkt till ert kontor eller arbetsplats.<br />
+              Ett perfekt sätt att prova på!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="vara-priser" class="white-border-rendering-fix bg-gray-100 py-8 scroll-mt-[18px] lg:scroll-mt-[24px]">
+      <div class="container mx-auto px-2 pt-4 pb-12 text-gray-800">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+          Våra priser
+        </h1>
+        <div class="w-full mb-4">
+          <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
+        </div>
+        <div class="flex flex-col sm:flex-row justify-center items-stretch gap-4 lg:gap-8 pt-12 my-12 sm:my-4">
+          <div class="group pricing-card flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-l-lg bg-white mt-4 min-h-[27rem] transition-all duration-300 ease-out will-change-transform hover:scale-[1.25] hover:shadow-2xl hover:z-20">
+            <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-none">
+              <div class="p-8 text-3xl font-bold text-center border-b-4 border-gray-100 transition-all duration-300 group-hover:border-transparent group-hover:text-[#d54233]">
+                Bas
+              </div>
+              <div class="h-1 w-full gradient my-0 py-0 rounded-t opacity-0 scale-x-75 origin-center transition-all duration-300 group-hover:opacity-100 group-hover:scale-x-100"></div>
+              <ul class="w-full text-center text-xl leading-8">
+                <li class="border-b py-4">3-kilos fruktkorg <strong>230 kr</strong></li>
+                <li class="border-b py-4">6-kilos fruktkorg <strong>282 kr</strong></li>
+                <li class="border-b py-4">9-kilos fruktkorg <strong>343 kr</strong></li>
+                <li class="border-b py-4">11-kilos fruktkorg <strong>384 kr</strong></li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden p-6">
+              <div class="flex items-center justify-center">
+                <a href="#contact" class="mx-auto lg:mx-0 gradient text-gray-800 font-bold rounded-full my-2 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                  Beställ
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="group pricing-card flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none bg-white mt-4 min-h-[27rem] transition-all duration-300 ease-out will-change-transform hover:scale-[1.25] hover:shadow-2xl hover:z-20">
+            <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-none">
+              <div class="p-8 text-3xl font-bold text-center border-b-4 border-gray-100 transition-all duration-300 group-hover:border-transparent group-hover:text-[#d54233]">Standard</div>
+              <div class="h-1 w-full gradient my-0 py-0 rounded-t opacity-0 scale-x-75 origin-center transition-all duration-300 group-hover:opacity-100 group-hover:scale-x-100"></div>
+              <ul class="w-full text-center text-xl leading-8">
+                <li class="border-b py-4">3-kilos fruktkorg <strong>248 kr</strong></li>
+                <li class="border-b py-4">6-kilos fruktkorg <strong>312 kr</strong></li>
+                <li class="border-b py-4">9-kilos fruktkorg <strong>379 kr</strong></li>
+                <li class="border-b py-4">11-kilos fruktkorg <strong>434 kr</strong></li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden p-6">
+              <div class="flex items-center justify-center">
+                <a href="#contact" class="mx-auto lg:mx-0 gradient text-gray-800 font-bold rounded-full my-2 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                  Beställ
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="group pricing-card flex flex-col w-5/6 lg:w-1/4 mx-auto lg:mx-0 rounded-none lg:rounded-r-lg bg-white mt-4 min-h-[27rem] transition-all duration-300 ease-out will-change-transform hover:scale-[1.25] hover:shadow-2xl hover:z-20">
+            <div class="flex-1 bg-white text-gray-600 rounded-t rounded-b-none overflow-hidden shadow-sm transition-shadow duration-300 group-hover:shadow-none">
+              <div class="p-8 text-3xl font-bold text-center border-b-4 border-gray-100 transition-all duration-300 group-hover:border-transparent group-hover:text-[#d54233]">
+                Ekologisk
+              </div>
+              <div class="h-1 w-full gradient my-0 py-0 rounded-t opacity-0 scale-x-75 origin-center transition-all duration-300 group-hover:opacity-100 group-hover:scale-x-100"></div>
+              <ul class="w-full text-center text-xl leading-8">
+                <li class="border-b py-4">3-kilos fruktkorg <strong>267 kr</strong></li>
+                <li class="border-b py-4">6-kilos fruktkorg <strong>372 kr</strong></li>
+                <li class="border-b py-4">9-kilos fruktkorg <strong>482 kr</strong></li>
+                <li class="border-b py-4">11-kilos fruktkorg <strong>540 kr</strong></li>
+              </ul>
+            </div>
+            <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden p-6">
+              <div class="flex items-center justify-center">
+                <a href="#contact" class="mx-auto lg:mx-0 gradient text-gray-800 font-bold rounded-full my-2 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition-all duration-300 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto">
+                  Beställ
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-sm italic text-gray-500 px-6">Alla priser exkl moms.</p>
+    </section>
+    <!-- Change the colour #f8fafc to match the previous section colour -->
+    <svg class="white-border-rendering-fix wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+          <g class="wave" fill="#f3f4f6">
+            <path
+              d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"
+            ></path>
+          </g>
+          <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+            <g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
+              <path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+              <path
+                d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z"
+                opacity="0.100000001"
+              ></path>
+              <path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" opacity="0.200000003"></path>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+  <section id="contact" class="bg-gradient-to-r from-[#ffe3d6] via-white to-[#fff5cc] py-16 mb-12 md:bg-none md:bg-transparent">
+      <div class="container mx-auto text-center px-4">
+        <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-900 mb-4 md:text-white md:[&_*]:text-white">
+          Kontakt
+        </h1>
+        <div class="mx-auto mb-10 h-1 w-24 rounded-full bg-[#f3b042]"></div>
+        <div class="w-full max-w-xl mx-auto flex flex-col gap-5 px-6 sm:px-8 py-8 sm:py-10 rounded-3xl border border-[#f7c948] bg-white/95 shadow-xl backdrop-blur">
+          <a class="group flex items-center gap-4 sm:gap-5 rounded-2xl border border-transparent bg-[#fff4e6] px-5 sm:px-6 py-4 sm:py-5 text-left font-bold text-gray-800 text-lg sm:text-2xl transition-all duration-200 hover:border-[#f3b042] hover:bg-white hover:text-[#d54233]" href="tel:070-8478837">
+            <span class="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#fee0d3] text-[#d54233] transition-colors duration-200 group-hover:bg-[#d54233] group-hover:text-white">
+              <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M511.2 387l-23.25 100.8c-3.266 14.25-15.79 24.22-30.46 24.22C205.2 512 0 306.8 0 54.5c0-14.66 9.969-27.2 24.22-30.45l100.8-23.25C139.7-2.602 154.7 5.018 160.8 18.92l46.52 108.5c5.438 12.78 1.77 27.67-8.98 36.45L144.5 207.1c33.98 69.22 90.26 125.5 159.5 159.5l44.08-53.8c8.688-10.78 23.69-14.51 36.47-8.975l108.5 46.51C506.1 357.2 514.6 372.4 511.2 387z"/></svg>
+            </span>
+            <span>070-8478837</span>
+          </a>
+          <a class="group flex items-center gap-4 sm:gap-5 rounded-2xl border border-transparent bg-[#fff4e6] px-5 sm:px-6 py-4 sm:py-5 text-left font-bold text-gray-800 text-lg sm:text-2xl transition-all duration-200 hover:border-[#f3b042] hover:bg-white hover:text-[#d54233]" href="mailto:mango@fruktinvest.se">
+            <span class="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#fee0d3] text-[#d54233] transition-colors duration-200 group-hover:bg-[#d54233] group-hover:text-white">
+              <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M464 64C490.5 64 512 85.49 512 112C512 127.1 504.9 141.3 492.8 150.4L275.2 313.6C263.8 322.1 248.2 322.1 236.8 313.6L19.2 150.4C7.113 141.3 0 127.1 0 112C0 85.49 21.49 64 48 64H464zM217.6 339.2C240.4 356.3 271.6 356.3 294.4 339.2L512 176V384C512 419.3 483.3 448 448 448H64C28.65 448 0 419.3 0 384V176L217.6 339.2z"/></svg>
+            </span>
+            <span>mango@fruktinvest.se</span>
+          </a>
+          <a class="group flex items-center gap-4 sm:gap-5 rounded-2xl border border-transparent bg-[#fff4e6] px-5 sm:px-6 py-4 sm:py-5 text-left font-bold text-gray-800 text-lg sm:text-2xl transition-all duration-200 hover:border-[#f3b042] hover:bg-white hover:text-[#d54233]" href="https://www.facebook.com/profile.php?id=100066737714415" target="_blank" rel="noopener noreferrer">
+            <span class="flex h-10 w-10 sm:h-12 sm:w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#fee0d3] text-[#d54233] transition-colors duration-200 group-hover:bg-[#d54233] group-hover:text-white">
+              <svg class="h-6 w-6 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>
+            </span>
+            <span>Fruktinvest.se</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <!--Footer-->
+    <footer class="bg-gradient-to-r from-white via-[#fff8ed] to-white">
+      <div class="container mx-auto px-8 py-10">
+        <div class="flex flex-col items-center gap-4">
+          <div class="flex flex-col items-center gap-3">
+            <img class="logo svg w-20" src="./b_85416_design_1_1.svg" alt="Fruktinvest logotyp">
+            <!-- <span class="text-gray-700 tracking-[0.4em] text-xs font-semibold uppercase text-center w-20">Fruktinvest</span> -->
+            <span class="text-gray-700 text-xs font-semibold uppercase text-center inline-block"
+                  style="letter-spacing: 0.4em; margin-right: -0.4em;">
+              Fruktinvest
+            </span>
+          </div>
+          <div class="h-px w-24 bg-[#f7c948]/60"></div>
+          <p class="text-sm text-gray-500 text-center">© <span id="year"></span> Fruktinvest. Alla rättigheter förbehållna.</p>
+        </div>
+      </div>
+    </footer>
+      <div
+        id="contact-float-wrapper"
+        class="fixed bottom-6 inset-x-0 flex justify-center z-40 opacity-0 pointer-events-none transition-opacity duration-500 ease-out"
+      >
+        <button
+          id="contact-float"
+          type="button"
+          class="transform rounded-full bg-[#d54233] text-white font-semibold px-6 py-3 shadow-2xl transition duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#f3b042] pointer-events-auto"
+        >
+          Kontakta oss nu
+        </button>
+      </div>
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"
+      integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"
+      integrity="sha256-Ap4KLoCf1rXb52q+i3p0k2vjBsmownyBTE1EqlRiMwA=" crossorigin="anonymous"></script>
+    <script src="inlineSVG.min.js"></script>
+    <script>
+      inlineSVG.init({
+        svgSelector: 'img.svg', // the class attached to all images that should be inlined
+        initClass: 'js-inlinesvg', // class added to <html>
+      }, function () {
+        console.log('All SVGs inlined');
+      });
+    </script>
+    <script>
+      (function () {
+        var storageKey = 'noCookiesBannerDismissed';
+        var banner = document.getElementById('no-cookies-banner');
+        var dismissButton = document.getElementById('no-cookies-dismiss');
+        var header = document.getElementById('header');
+
+        if (!banner || !dismissButton || !header) {
+          return;
+        }
+
+        function updateNavOffset() {
+          if (banner.classList.contains('hidden') || banner.classList.contains('is-hiding')) {
+            header.style.top = '0px';
+            return;
+          }
+          header.style.top = banner.offsetHeight + 'px';
+        }
+
+        function showBanner() {
+          if (!banner.classList.contains('hidden')) {
+            banner.classList.add('is-visible');
+            updateNavOffset();
+            return;
+          }
+
+          banner.classList.remove('hidden');
+          banner.classList.remove('is-hiding');
+          updateNavOffset();
+
+          requestAnimationFrame(function () {
+            banner.classList.add('is-visible');
+            updateNavOffset();
+          });
+        }
+
+        function finalizeHide() {
+          banner.classList.add('hidden');
+          banner.classList.remove('is-hiding');
+          updateNavOffset();
+        }
+
+        function hideBanner() {
+          if (banner.classList.contains('hidden')) {
+            updateNavOffset();
+            return;
+          }
+
+          banner.classList.remove('is-visible');
+          banner.classList.add('is-hiding');
+          header.style.top = '0px';
+
+          var handled = false;
+
+          var handleTransitionEnd = function (event) {
+            if (event.target !== banner || handled) {
+              return;
+            }
+            handled = true;
+            banner.removeEventListener('transitionend', handleTransitionEnd);
+            finalizeHide();
+          };
+
+          banner.addEventListener('transitionend', handleTransitionEnd);
+
+          setTimeout(function () {
+            if (handled) {
+              return;
+            }
+            banner.removeEventListener('transitionend', handleTransitionEnd);
+            finalizeHide();
+          }, 400);
+        }
+
+        var storageAvailable = true;
+        try {
+          var testKey = '__frukt_banner__';
+          window.localStorage.setItem(testKey, testKey);
+          window.localStorage.removeItem(testKey);
+        } catch (error) {
+          storageAvailable = false;
+        }
+
+        var hasSeenNotice = storageAvailable && window.localStorage.getItem(storageKey) === 'true';
+
+        if (hasSeenNotice) {
+          banner.classList.add('hidden');
+          banner.classList.remove('is-visible', 'is-hiding');
+          updateNavOffset();
+        } else {
+          showBanner();
+        }
+
+        dismissButton.addEventListener('click', function () {
+          if (storageAvailable) {
+            window.localStorage.setItem(storageKey, 'true');
+          }
+          hideBanner();
+        });
+
+        window.addEventListener('resize', function () {
+          if (!banner.classList.contains('hidden') || banner.classList.contains('is-hiding')) {
+            updateNavOffset();
+          }
+        });
+      })();
+  </script>
+  <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+      var scrollpos = window.scrollY;
+      var header = document.getElementById("header");
+      var navcontent = document.getElementById("nav-content");
+      var navaction = document.getElementById("navAction");
+      var brandname = document.getElementById("brandname");
+      var toToggle = document.querySelectorAll(".toggleColour");
+
+      document.addEventListener("scroll", function () {
+        /*Apply classes for slide in bar*/
+        scrollpos = window.scrollY;
+
+        if (scrollpos > 10) {
+          header.classList.add("bg-white");
+          /*navaction.classList.remove("bg-white");
+          navaction.classList.add("gradient");
+          navaction.classList.remove("text-gray-800");
+          navaction.classList.add("text-white");
+          //Use to switch toggleColour colours
+          for (var i = 0; i < toToggle.length; i++) {
+            toToggle[i].classList.add("text-gray-800");
+            toToggle[i].classList.remove("text-white");
+          }*/
+          brandname.classList.add("text-gray-800");
+          brandname.classList.remove("text-white");
+          header.classList.add("shadow");
+          //navcontent.classList.remove("bg-gray-100");
+          //navcontent.classList.add("bg-white");
+        } else {
+          header.classList.remove("bg-white");
+          /*navaction.classList.remove("gradient");
+          navaction.classList.add("bg-white");
+          navaction.classList.remove("text-white");
+          navaction.classList.add("text-gray-800");
+          //Use to switch toggleColour colours
+          for (var i = 0; i < toToggle.length; i++) {
+            toToggle[i].classList.add("text-white");
+            toToggle[i].classList.remove("text-gray-800");
+          }*/
+          brandname.classList.remove("text-gray-800");
+          brandname.classList.add("text-white");
+
+          header.classList.remove("shadow");
+          //navcontent.classList.remove("bg-white");
+          //navcontent.classList.add("bg-gray-100");
+        }
+      });
+
+      $(".cta").click(function () {
+        $([document.documentElement, document.body]).animate({
+          scrollTop: $("#contact").offset().top - 100
+        }, 1500, 'easeInOutQuad');
+      });
+    </script>
+    <script>
+      (function () {
+        var contactWrapper = document.getElementById('contact-float-wrapper');
+        var contactBtn = document.getElementById('contact-float');
+        var contactSection = document.getElementById('contact');
+        if (!contactWrapper || !contactBtn) {
+          return;
+        }
+
+        var supportsAnimate = typeof contactWrapper.animate === 'function';
+        var isVisible = false;
+        var isPointerNearBottom = false;
+        var scrollTimer = null;
+        var delay = 5000;
+        var proximityThreshold = 140;
+        var bounceTimeout = null;
+        var bounceKeyframes = supportsAnimate
+          ? [
+              { transform: 'translateY(0)' },
+              { transform: 'translateY(-16px)' },
+              { transform: 'translateY(0)' }
+            ]
+          : null;
+
+        var clearBounceTimeout = function () {
+          if (bounceTimeout) {
+            clearTimeout(bounceTimeout);
+            bounceTimeout = null;
+          }
+        };
+
+        var triggerBounce = function () {
+          if (!supportsAnimate || isPointerNearBottom || !isVisible) {
+            return;
+          }
+
+          contactWrapper.style.transform = 'translateY(0)';
+          var bounce = contactWrapper.animate(bounceKeyframes, {
+            duration: 1000,
+            easing: 'ease-in-out',
+            iterations: 1
+          });
+
+          bounce.onfinish = function () {
+            contactWrapper.style.transform = 'translateY(0)';
+            bounceTimeout = setTimeout(triggerBounce, 100);
+          };
+
+          bounce.oncancel = function () {
+            contactWrapper.style.transform = 'translateY(0)';
+          };
+        };
+
+        var showButton = function () {
+          if (isVisible) {
+            return;
+          }
+          isVisible = true;
+          contactWrapper.classList.add('opacity-100', 'pointer-events-auto');
+          contactWrapper.classList.remove('opacity-0', 'pointer-events-none');
+          contactWrapper.style.transform = 'translateY(0)';
+          clearBounceTimeout();
+          if (supportsAnimate && !isPointerNearBottom) {
+            bounceTimeout = setTimeout(triggerBounce, 100);
+          }
+        };
+
+        var hideButton = function () {
+          if (!isVisible) {
+            return;
+          }
+          isVisible = false;
+          contactWrapper.classList.add('opacity-0', 'pointer-events-none');
+          contactWrapper.classList.remove('opacity-100', 'pointer-events-auto');
+          contactWrapper.style.transform = 'translateY(0)';
+          clearBounceTimeout();
+        };
+
+        var isContactVisible = function () {
+          if (!contactSection) {
+            return false;
+          }
+          var rect = contactSection.getBoundingClientRect();
+          return rect.top < window.innerHeight && rect.bottom > 0;
+        };
+
+        var onScrollStopped = function () {
+          scrollTimer = null;
+          if (window.scrollY > window.innerHeight && !isContactVisible()) {
+            showButton();
+          } else {
+            hideButton();
+          }
+        };
+
+        var handleScroll = function () {
+          if (scrollTimer) {
+            clearTimeout(scrollTimer);
+            scrollTimer = null;
+          }
+
+          if (isContactVisible()) {
+            hideButton();
+            return;
+          }
+
+          hideButton();
+          scrollTimer = setTimeout(onScrollStopped, delay);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll);
+        window.addEventListener('mousemove', function (event) {
+          if (!event) {
+            return;
+          }
+          var distanceFromBottom = window.innerHeight - event.clientY;
+          var shouldRest = distanceFromBottom <= proximityThreshold;
+          if (shouldRest !== isPointerNearBottom) {
+            isPointerNearBottom = shouldRest;
+            if (supportsAnimate) {
+              if (isPointerNearBottom) {
+                clearBounceTimeout();
+                contactWrapper.style.transform = 'translateY(0)';
+              } else if (isVisible) {
+                clearBounceTimeout();
+                bounceTimeout = setTimeout(triggerBounce, 100);
+              }
+            }
+          }
+        });
+        handleScroll();
+
+        contactBtn.addEventListener('click', function () {
+          hideButton();
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      })();
+    </script>
+    <script>
+      /*Toggle dropdown list*/
+      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
+
+      var navMenuDiv = document.getElementById("nav-content");
+      var navMenu = document.getElementById("nav-toggle");
+      var navLinks = navMenuDiv ? navMenuDiv.querySelectorAll('a[href]') : [];
+
+      navLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          if (!navMenuDiv) {
+            return;
+          }
+          var isMobile = window.innerWidth < 1024; // Tailwind lg breakpoint
+          if (isMobile && !navMenuDiv.classList.contains('hidden')) {
+            navMenuDiv.classList.add('hidden');
+          }
+        });
+      });
+
+      document.onclick = check;
+      function check(e) {
+        var target = (e && e.target) || (event && event.srcElement);
+
+        //Nav Menu
+        if (!checkParent(target, navMenuDiv)) {
+          // click NOT on the menu
+          if (checkParent(target, navMenu)) {
+            // click on the link
+            if (navMenuDiv.classList.contains("hidden")) {
+              navMenuDiv.classList.remove("hidden");
+            } else {
+              navMenuDiv.classList.add("hidden");
+            }
+          } else {
+            // click both outside link and outside menu, hide menu
+            navMenuDiv.classList.add("hidden");
+          }
+        }
+      }
+      function checkParent(t, elm) {
+        while (t.parentNode) {
+          if (t == elm) {
+            return true;
+          }
+          t = t.parentNode;
+        }
+        return false;
+      }
+    </script>
+  </body>
+</html>
