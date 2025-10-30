@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 – Sidan hittades inte | Fruktinvest</title>
+<meta name="description" content="Tyvärr! Den här sidan finns inte. Gå vidare till startsidan eller kontakta oss." />
+<!-- Prevent indexing the standalone 404 page -->
+<meta name="robots" content="noindex,follow" />
+<!-- Prefer the homepage as canonical target -->
+<link rel="canonical" href="/" />
+<link rel="icon" href="/favicon.ico" />
+<style>
+:root {
+--brand-primary: #d54233; /* red */
+--brand-accent: #f3b042; /* mango */
+--bg-grad-a: #fff8ed;
+--bg-grad-b: #ffe3d6;
+--text: #333333;
+--muted: #6b7280;
+}
+* { box-sizing: border-box }
+html, body { height: 100% }
+body {
+margin: 0;
+font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+color: var(--text);
+background: linear-gradient(180deg, var(--bg-grad-a) 0%, var(--bg-grad-b) 100%);
+display: grid;
+place-items: center;
+padding: 24px;
+}
+.card {
+width: min(800px, 100%);
+background: #fff;
+border: 1px solid #f7c94866;
+border-radius: 24px;
+box-shadow: 0 10px 30px rgba(213,66,51,.12);
+padding: clamp(20px, 5vw, 40px);
+text-align: center;
+}
+.brand {
+	display: flex;
+	flex-direction: column; /* stack image above text */
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	margin-bottom: 10px;
+	text-transform: uppercase;
+	letter-spacing: .3em;
+	font-weight: 700;
+	color: #555;
+}
+.brand img { width: 44px; height: 44px }
+h1 {
+margin: 8px 0 4px;
+font-size: clamp(28px, 5vw, 44px);
+line-height: 1.1;
+color: var(--brand-primary);
+}
+/* Title tweaks: keep on one line on desktop, allow wrapping and smaller size on mobile */
+#title {
+	white-space: nowrap;
+	text-align: center;
+	margin: 0 auto;
+	display: block;
+}
+
+@media (max-width: 480px) {
+	#title {
+		white-space: normal; /* allow wrapping on small screens */
+		font-size: clamp(20px, 6vw, 28px);
+		padding: 0 8px; /* give some side padding so text doesn't touch edges */
+	}
+}
+p { margin: 10px 0 0; font-size: clamp(16px, 2.5vw, 20px); color: var(--muted) }
+.actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px }
+.btn {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+padding: 12px 20px;
+border-radius: 9999px;
+text-decoration: none;
+font-weight: 700;
+border: 2px solid transparent;
+transition: transform .15s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn:focus { outline: none; box-shadow: 0 0 0 3px #0002, 0 0 0 6px #0001 }
+.btn-primary { background: var(--brand-primary); color: #fff }
+.btn-primary:hover { transform: translateY(-1px); background: #c43428 }
+.btn-ghost { background: #fff; color: var(--brand-primary); border-color: #f3b042 }
+.btn-ghost:hover { transform: translateY(-1px); background: #fff8f6 }
+.tiny { margin-top: 20px; font-size: 12px; color: #9ca3af }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0 }
+</style>
+</head>
+<body>
+<main class="card" role="main" aria-labelledby="title">
+<div class="brand" aria-label="Fruktinvest">
+	<img style="width:48px;height:48px" class="svg h-8 fill-current inline" src="./b_85416_design_1_1.svg" alt="Fruktinvest logotyp" />
+	<span class="logo-text">FRUKTINVEST</span>
+</div>
+<h1 id="title">404 – Inga frukter att plocka här</h1>
+<p>Oj! Länken verkar vara felstavad eller så har sidan flyttats.</p>
+<div class="actions" role="navigation" aria-label="Snabblänkar">
+<a class="btn btn-primary" href="/" aria-label="Gå till startsidan">Till startsidan</a>
+</div>
+<p class="tiny">Felkod: 404 • <span id="path" aria-live="polite"></span></p>
+</main>
+<script>
+// Show the broken path for debugging, no PII.
+(function(){
+try { document.getElementById('path').textContent = window.location.pathname; } catch(e) {}
+})();
+</script>
+</body>
+</html>
