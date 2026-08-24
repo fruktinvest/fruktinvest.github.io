@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Godkänd fruktgaranti</title>
+  <path
+    d="M32 5.5 51 12v16.2c0 13.1-7.6 22.8-19 30.3-11.4-7.5-19-17.2-19-30.3V12L32 5.5Z"
+    fill="none"
+    stroke="#166534"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="4.25"
+  />
+  <path
+    d="m21.5 31.5 6.8 6.8 14.2-15.7"
+    fill="none"
+    stroke="#166534"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="4.25"
+  />
+</svg>
