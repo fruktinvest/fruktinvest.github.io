@@ -1,19 +1,51 @@
-name: Check Tailwind CSS build
+name: Build and commit optimized Tailwind CSS
 on:
   pull_request:
+    branches: [main]
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   build:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: true
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
       - run: npm install --no-audit --no-fund
       - run: npm run build:css
-      - name: Verify generated CSS
-        run: test -s assets/tailwind.css
+      - name: Validate generated stylesheet
+        run: |
+          test -s assets/tailwind.css
+          grep -q 'text-gray-800' assets/tailwind.css
+          grep -q 'bg-yellow-400' assets/tailwind.css
+      - name: Replace Tailwind CDN with built stylesheet
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          old = '<script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>'
+          new = '<link rel="stylesheet" href="/assets/tailwind.css" />'
+          if old in s:
+              p.write_text(s.replace(old, new))
+          elif new not in s:
+              raise SystemExit('Expected Tailwind loader not found')
+          PY
+      - name: Commit generated assets to PR branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/tailwind.css index.html
+          if ! git diff --cached --quiet; then
+            git commit -m "Build optimized Tailwind CSS and replace CDN"
+            git push
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: compiled-tailwind-css
