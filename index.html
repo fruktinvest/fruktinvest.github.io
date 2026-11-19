@@ -1702,7 +1702,7 @@
             return field[0] + ': ' + document.getElementById(field[1]).value.trim();
           });
           var subject = 'Förfrågan om fruktkorgar - ' + document.getElementById('fruit-company').value.trim();
-          var mailto = 'mailto:alexander@fruktinvest.se?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
+          var mailto = 'mailto:veronica@fruktinvest.se?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
           document.getElementById('fruit-form-status').textContent = 'Ditt e-postprogram öppnas. Förfrågan skickas först när du skickar mejlet.';
           window.location.href = mailto;
         });
