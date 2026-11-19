@@ -1015,6 +1015,7 @@
             <div><label for="fruit-phone" class="block font-semibold mb-2">Telefon</label><input id="fruit-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" class="w-full rounded-xl border border-gray-400 p-3" /></div>
             <div class="sm:col-span-2"><label for="fruit-address" class="block font-semibold mb-2">Leveransadress / ort *</label><input id="fruit-address" name="address" autocomplete="street-address" maxlength="200" required class="w-full rounded-xl border border-gray-400 p-3" /></div>
             <div class="sm:col-span-2"><label for="fruit-notes" class="block font-semibold mb-2">Övriga önskemål</label><textarea id="fruit-notes" name="notes" rows="3" maxlength="1000" class="w-full rounded-xl border border-gray-400 p-3"></textarea></div>
+            <div class="sm:col-span-2 rounded-2xl border border-green-200 bg-green-50 p-5" aria-live="polite" aria-atomic="true"><h3 class="text-lg font-bold">Preliminärt pris</h3><p id="fruit-price-placeholder" class="mt-2">Välj fruktkorg och storlek för att se priset.</p><div id="fruit-price-values" class="hidden mt-3"><p>Per leverans: <strong id="fruit-price-delivery"></strong></p><p id="fruit-price-week-row" class="mt-2">Per vecka: <strong id="fruit-price-week"></strong></p></div><p class="mt-3 text-sm text-gray-600">Alla priser exklusive moms. Preliminär beräkning som bekräftas vid beställning.</p></div>
             <div class="sm:col-span-2">
               <p class="mb-4 text-sm text-gray-700">När du klickar öppnas ditt e-postprogram med förfrågan ifylld. Kontrollera och skicka mejlet där. Inga uppgifter skickas automatiskt från webbplatsen.</p>
               <button type="submit" class="w-full rounded-full bg-yellow-400 px-8 py-4 font-bold text-gray-900 shadow hover:bg-yellow-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800 sm:w-auto">Öppna förfrågan i e-post</button>
@@ -1686,9 +1687,32 @@
         var form = document.getElementById('fruit-enquiry-form');
         if (!form) return;
         var type = document.getElementById('fruit-type');
+        var weight = document.getElementById('fruit-weight');
+        var count = document.getElementById('fruit-count');
+        var frequency = document.getElementById('fruit-frequency');
+        var prices = {Bas:[165,185,205,225,245,265,285,305,325,345],Standard:[180,205,230,255,280,305,330,355,380,405],Ekologisk:[200,240,280,320,360,400,440,480,520,560]};
+        var formatter = new Intl.NumberFormat('sv-SE', {style:'currency',currency:'SEK',maximumFractionDigits:0});
+        var currentPrice = null;
+        function updatePrice() {
+          var kg = Number(weight.value.replace(' kg',''));
+          var qty = Number(count.value);
+          var valid = prices[type.value] && kg >= 3 && kg <= 12 && Number.isInteger(qty) && qty >= 1 && qty <= 999;
+          var placeholder = document.getElementById('fruit-price-placeholder');
+          var values = document.getElementById('fruit-price-values');
+          if (!valid) { currentPrice = null; placeholder.classList.remove('hidden'); values.classList.add('hidden'); return; }
+          currentPrice = prices[type.value][kg-3]*qty;
+          document.getElementById('fruit-price-delivery').textContent = formatter.format(currentPrice);
+          var freq = frequency.selectedIndex;
+          document.getElementById('fruit-price-week').textContent = freq === 1 ? formatter.format(currentPrice) : freq === 2 ? formatter.format(currentPrice*2) : 'Välj måndag eller måndag och onsdag';
+          placeholder.classList.add('hidden'); values.classList.remove('hidden');
+        }
+        [type,weight,count,frequency].forEach(function(el){el.addEventListener('input',updatePrice);el.addEventListener('change',updatePrice);});
+        updatePrice();
+
         document.querySelectorAll('.pricing-order-button[data-fruit-type]').forEach(function (link) {
           link.addEventListener('click', function () {
             type.value = link.getAttribute('data-fruit-type');
+            updatePrice();
           });
         });
         form.addEventListener('submit', function (event) {
@@ -1704,6 +1728,7 @@
           var lines = fields.map(function (field) {
             return field[0] + ': ' + document.getElementById(field[1]).value.trim();
           });
+          if (currentPrice !== null) lines.push('Preliminärt pris per leverans exkl moms: ' + formatter.format(currentPrice));
           var subject = 'Förfrågan om fruktkorgar - ' + document.getElementById('fruit-company').value.trim();
           var mailto = 'mailto:veronica@fruktinvest.se?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(lines.join('\n'));
           document.getElementById('fruit-form-status').textContent = 'Ditt e-postprogram öppnas. Förfrågan skickas först när du skickar mejlet.';
